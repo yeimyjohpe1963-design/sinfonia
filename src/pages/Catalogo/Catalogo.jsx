@@ -7,6 +7,7 @@ import SeccionGeneros from "../../components/SeccionGeneros/SeccionGeneros";
 import SeccionAlbumes from "../../components/SeccionesAlbumes/SeccionesAlbumes";
 import TarjetaArtista from "../../components/TarjetaArtista/TarjetaArtista";
 import ListaCanciones from "../../components/ListaCanciones/ListaCanciones";
+import TarjetaGeneroSimilares from "../../components/TarjetaGenero/TarjetaGenero";
 
 export default function Catalogo({
   datos,
@@ -127,7 +128,11 @@ export default function Catalogo({
           canciones={pistas}
           titulo={tCat?.genero?.canciones?.titulo}          
           />
-        )}      
+        )}
+        <TarjetaGeneroSimilares
+          genero={genero}
+        />
+              
     </main>
       )
     };

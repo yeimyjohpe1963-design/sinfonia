@@ -1,7 +1,7 @@
 // hooks/useGenero.js
 import { useEffect, useState } from "react";
 
-const API = "https://yanethm-sintonia-api.fly.dev/api/v1";
+const API = "https://yanethm-sintonia-sustentacion.fly.dev/api/v1";
 
 export function useGenero(id) {
   const [detalle, setDetalle] = useState(null);

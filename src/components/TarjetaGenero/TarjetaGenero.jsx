@@ -31,7 +31,7 @@ export default function TarjetaGenero({
   const valorId = idGenero || (typeof nombre === "object" ? nombre?.id : nombre);
 
   const valorGeneroActivo =
-    typeof genero === "object" ? genero?.id || genero?.nombre : genero;
+    typeof genero === "object" ? genero?.id.similares || genero?.nombre.similares : genero;
   const estaActivo =
     valorGeneroActivo === valorId || valorGeneroActivo === textoNombre;
 
