@@ -1,0 +1,212 @@
+/* LayoutAuth: panel de formulario (4fr) + panel de marca (5fr). 640px / 800px a 1440px de ancho. */
+
+.auth {
+  /* 56px del diseño */
+  --auth-pad: calc(var(--espacio-12) + var(--espacio-2));
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--fondo-base);
+  color: var(--texto-principal);
+}
+
+/* ---------- Panel del formulario ---------- */
+.auth-principal {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--auth-pad);
+  background-color: var(--fondo-base);
+}
+
+.auth-logo {
+  display: inline-flex;
+  align-self: flex-start;
+  height: 32px;
+  border-radius: var(--radio-sm);
+}
+
+.auth-logo img {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.auth-logo:focus-visible {
+  outline: 2px solid var(--marca-primario);
+  outline-offset: 4px;
+}
+
+/* El formulario queda centrado verticalmente entre el logo y el pie legal */
+.auth-contenido {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  padding-block: var(--espacio-8);
+}
+
+.auth-legal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  color: var(--texto-terciario);
+}
+
+.auth-legal p {
+  margin: 0;
+}
+
+/* ---------- Collage móvil (oculto en escritorio) ---------- */
+.auth-collage {
+  display: none;
+}
+
+/* ---------- Panel de marca ---------- */
+.auth-presentacion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: var(--auth-pad);
+  background-color: var(--fondo-superficie);
+}
+
+.auth-grilla {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--espacio-4);
+  width: 100%;
+  max-width: 688px;
+}
+
+.auth-grilla-item {
+  aspect-ratio: 1 / 1;
+  border-radius: calc(var(--radio-lg) + var(--espacio-1)); /* 20px */
+  overflow: hidden;
+}
+
+/* PortadaAlbum debe llenar el recuadro */
+.auth-grilla-item > *,
+.auth-collage-item > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.auth-presentacion-titulo {
+  max-width: 688px;
+  margin: var(--espacio-8) 0 0;
+  color: var(--texto-principal);
+  text-wrap: balance;
+}
+
+.auth-presentacion-texto {
+  max-width: 688px;
+  margin: var(--espacio-8) 0 0;
+  color: var(--texto-secundario);
+}
+
+/* ---------- Tablet / móvil: una sola columna (diseño Contenido.svg, 390px) ---------- */
+@media (max-width: 1200px) {
+  .auth {
+    --auth-pad: var(--espacio-8);
+  }
+}
+
+@media (max-width: 960px) {
+  .auth {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .auth-presentacion {
+    display: none;
+  }
+
+  /* El collage va pegado arriba: él mismo trae su margen superior */
+  .auth-principal {
+    padding-top: 0;
+  }
+
+  /* Orden natural del JSX: collage, logo, formulario, pie.
+     En pantallas anchas de una columna, logo y formulario comparten borde izquierdo. */
+  .auth-logo {
+    margin-left: max(0px, calc((100% - 400px) / 2));
+  }
+
+  .auth-contenido {
+    flex: 1 0 auto;
+    justify-content: flex-start;
+    margin-inline: auto;
+    padding-block: calc(var(--espacio-4) + 2px) var(--espacio-8); /* 18px bajo el logo */
+  }
+
+  .auth-legal {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Collage: centro 150px; laterales de 96px girados ±10° desde su esquina superior izquierda */
+  .auth-collage {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 202px;
+    margin-bottom: var(--espacio-6); /* el logo queda a 226px del borde superior */
+  }
+
+  .auth-collage-item {
+    position: absolute;
+    overflow: hidden;
+    transform-origin: 0 0;
+  }
+
+  .auth-collage-centro {
+    top: 32px;
+    left: calc(50% - 75px);
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    border-radius: calc(var(--radio-lg) + 2px); /* 18px */
+    box-shadow: var(--sombra-flotante);
+  }
+
+  .auth-collage-izquierda,
+  .auth-collage-derecha {
+    z-index: 2;
+    width: 96px;
+    height: 96px;
+    border-radius: calc(var(--radio-md) + 4px); /* 14px */
+    box-shadow: var(--sombra-tarjeta);
+  }
+
+  .auth-collage-izquierda {
+    top: 104px;
+    left: calc(50% - 159px);
+    transform: rotate(-10deg);
+  }
+
+  .auth-collage-derecha {
+    top: 48px;
+    left: calc(50% + 67px);
+    transform: rotate(10deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .auth {
+    --auth-pad: var(--espacio-6); /* 24px laterales */
+  }
+}
+
+/* Pantallas muy angostas: el collage se reduce para no recortarse */
+@media (max-width: 359px) {
+  .auth-collage {
+    margin-bottom: calc(var(--espacio-6) - 30px);
+    transform: scale(0.85);
+    transform-origin: top center;
+  }
+}
