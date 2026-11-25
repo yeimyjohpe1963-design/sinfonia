@@ -1,0 +1,278 @@
+/* Login (FormularioIngresar): columna de 400px, campos de 50px, botón pill */
+
+.login {
+  --login-gap: calc(var(--espacio-4) + var(--espacio-1)); /* 20px en escritorio */
+  display: flex;
+  flex-direction: column;
+  gap: var(--login-gap);
+  width: 100%;
+}
+
+.login-titulo {
+  margin: 0;
+  color: var(--texto-principal);
+}
+
+.login-subtitulo {
+  margin: 0;
+  color: var(--texto-secundario);
+}
+
+/* ---------- Alerta general ---------- */
+.login-alerta-zona:empty {
+  display: none;
+}
+
+.login-alerta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  padding: var(--espacio-3) var(--espacio-4);
+  border: 1px solid var(--estado-error);
+  border-radius: var(--radio-md);
+  background-color: var(--estado-error-suave);
+  color: var(--texto-principal);
+}
+
+.login-alerta p {
+  margin: 0;
+}
+
+.login-alerta-titulo {
+  color: var(--estado-error);
+}
+
+.login-alerta-boton {
+  align-self: flex-start;
+  margin-top: var(--espacio-2);
+  padding: var(--espacio-2) var(--espacio-4);
+  border: 1px solid var(--estado-error);
+  border-radius: var(--radio-completo);
+  background-color: transparent;
+  color: var(--estado-error);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.login-alerta-boton:hover:not(:disabled) {
+  background-color: var(--estado-error);
+  color: var(--texto-inverso);
+}
+
+.login-alerta-boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-alerta-boton:focus-visible {
+  outline: 2px solid var(--estado-error);
+  outline-offset: 2px;
+}
+
+/* ---------- Campos ---------- */
+.login-campo {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--espacio-1) + 2px); /* 6px */
+}
+
+.login-campo label {
+  color: var(--texto-principal);
+}
+
+.login-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 var(--espacio-4);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: calc(var(--radio-md) + 2px);
+  background-color: var(--fondo-superficie);
+  color: var(--texto-principal);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-input::placeholder {
+  color: var(--texto-terciario);
+}
+
+.login-input:hover {
+  border-color: var(--texto-terciario);
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--marca-primario);
+  box-shadow: 0 0 0 3px var(--marca-suave);
+}
+
+.login-input[aria-invalid="true"] {
+  border-color: var(--estado-error);
+}
+
+.login-input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px var(--estado-error-suave);
+}
+
+.login-error-campo {
+  margin: 0;
+  color: var(--estado-error);
+}
+
+/* Contraseña con botón de ojo */
+.login-input-envoltura {
+  position: relative;
+}
+
+.login-input-clave {
+  padding-right: 52px;
+}
+
+.login-ojo {
+  position: absolute;
+  top: 50%;
+  right: var(--espacio-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-md);
+  background-color: transparent;
+  color: var(--texto-secundario);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: color 0.15s ease;
+}
+
+.login-ojo:hover {
+  color: var(--texto-principal);
+}
+
+.login-ojo:focus-visible {
+  outline: 2px solid var(--marca-primario);
+  outline-offset: 0;
+}
+
+.login-ojo svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- Opciones: mantener sesión + olvidaste ---------- */
+.login-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3); /* si no cabe, el enlace baja a su propia línea */
+  margin-top: var(--espacio-1);
+}
+
+.login-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  color: var(--texto-principal);
+  cursor: pointer;
+}
+
+.login-check input[type="checkbox"] {
+  position: relative;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1.5px solid var(--borde-fuerte);
+  border-radius: calc(var(--radio-sm) / 2);
+  background-color: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.login-check input[type="checkbox"]:checked {
+  border-color: var(--marca-primario);
+  background-color: var(--marca-primario);
+}
+
+.login-check input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 4px;
+  height: 9px;
+  border: solid var(--texto-sobre-marca);
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -55%) rotate(45deg);
+}
+
+.login-check input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--marca-primario);
+  outline-offset: 2px;
+}
+
+/* ---------- Enlaces ---------- */
+.login-enlace {
+  color: var(--texto-marca);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+
+.login-enlace:hover {
+  opacity: 0.8;
+}
+
+.login-enlace:focus-visible {
+  outline: 2px solid var(--marca-primario);
+  outline-offset: 3px;
+  border-radius: var(--radio-sm);
+}
+
+/* ---------- Botón principal ---------- */
+.login-enviar {
+  width: 100%;
+  height: 52px;
+  border: 0;
+  border-radius: var(--radio-completo);
+  background-color: var(--marca-primario);
+  color: var(--texto-sobre-marca);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.login-enviar:hover:not(:disabled) {
+  background-color: var(--marca-primario-hover);
+}
+
+.login-enviar:active:not(:disabled) {
+  background-color: var(--marca-primario-presionado);
+}
+
+.login-enviar:focus-visible {
+  outline: 2px solid var(--texto-principal);
+  outline-offset: 3px;
+}
+
+.login-enviar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-pie {
+  margin: 0;
+  text-align: center;
+  color: var(--texto-secundario);
+}
+
+/* ---------- Móvil (Contenido.svg): separación de 18px entre bloques; el título conserva 40px ---------- */
+@media (max-width: 960px) {
+  .login {
+    --login-gap: calc(var(--espacio-4) + 2px);
+  }
+}
