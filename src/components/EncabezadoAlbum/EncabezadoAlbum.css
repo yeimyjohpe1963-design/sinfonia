@@ -1,0 +1,127 @@
+/* EncabezadoAlbum: portada 232px + info alineada al borde inferior (diseño de escritorio) */
+
+.encabezado-album {
+  display: flex;
+  align-items: flex-end;
+  gap: calc(var(--espacio-6) + var(--espacio-1)); /* 28px */
+  min-width: 0;
+}
+
+/* ---------- Portada ---------- */
+.encabezado-album-portada {
+  flex: 0 0 auto;
+  width: 232px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radio-lg);
+  overflow: hidden;
+  background-color: var(--fondo-elevada);
+  box-shadow: var(--sombra-tarjeta);
+}
+
+/* PortadaAlbum debe llenar el contenedor, sea SVG, div o img */
+.encabezado-album-portada > *,
+.encabezado-album-avatar > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Info ---------- */
+.encabezado-album-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espacio-2);
+  min-width: 0;
+  padding-bottom: var(--espacio-1);
+}
+
+/* Chip de tipo ("Álbum", "EP", "Sencillo"...) */
+.encabezado-album-tipo {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 var(--espacio-3);
+  border-radius: var(--radio-completo);
+  background-color: var(--fondo-sutil);
+  color: var(--texto-secundario);
+}
+
+.encabezado-album .encabezado-album-titulo {
+  margin: 0;
+  color: var(--texto-principal);
+  /* Escala fluida: 64px en escritorio, ~36px en móvil */
+  font-size: clamp(2.25rem, 1.2rem + 4.4vw, 4rem);
+  line-height: 1.06;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+/* ---------- Meta: avatar · artista · año · canciones · duración ---------- */
+.encabezado-album-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: var(--espacio-1) 0 0;
+  color: var(--texto-secundario);
+}
+
+.encabezado-album-artista {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  margin-right: var(--espacio-1);
+}
+
+.encabezado-album-artista strong {
+  color: var(--texto-principal);
+}
+
+.encabezado-album-avatar {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radio-completo);
+  overflow: hidden;
+  background-color: var(--fondo-elevada);
+}
+
+.encabezado-album-dato {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.encabezado-album-separador {
+  margin: 0 var(--espacio-1);
+  color: var(--texto-terciario);
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1024px) {
+  .encabezado-album {
+    gap: var(--espacio-6);
+  }
+
+  .encabezado-album-portada {
+    width: 192px;
+  }
+}
+
+/* ---------- Móvil: portada centrada arriba, info debajo ---------- */
+@media (max-width: 720px) {
+  .encabezado-album {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--espacio-4);
+  }
+
+  .encabezado-album-portada {
+    width: min(240px, 70vw);
+    align-self: center;
+  }
+
+  .encabezado-album-info {
+    padding-bottom: 0;
+  }
+}

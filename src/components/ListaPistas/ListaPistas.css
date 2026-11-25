@@ -1,0 +1,165 @@
+/* ListaPistas: tabla de pistas. Columnas: # · título (miniatura + textos) · [reproducciones] · duración */
+
+.lista-pistas {
+  --pistas-columnas: 24px minmax(0, 1fr) 80px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Solo existe la columna de reproducciones si la API la entrega */
+.lista-pistas-con-reproducciones {
+  --pistas-columnas: 24px minmax(0, 1fr) 160px 80px;
+}
+
+/* ---------- Fila (cabecera y pistas) ---------- */
+.lista-pistas-fila {
+  display: grid;
+  grid-template-columns: var(--pistas-columnas);
+  align-items: center;
+  column-gap: var(--espacio-4);
+  min-height: 64px;
+  padding: var(--espacio-2) var(--espacio-4);
+  border-radius: var(--radio-md);
+  color: var(--texto-principal);
+  transition: background-color 0.15s ease;
+}
+
+.lista-pistas-fila:not(.lista-pistas-cabecera):hover {
+  background-color: var(--fondo-elevada);
+}
+
+/* ---------- Cabecera ---------- */
+.lista-pistas-cabecera {
+  min-height: 40px;
+  padding-block: 0;
+  border-bottom: 1px solid var(--borde-sutil);
+  border-radius: 0;
+  color: var(--texto-terciario);
+}
+
+.lista-pistas-cabecera .detalle-etiqueta,
+.lista-pistas-cabecera .lista-pistas-duracion {
+  color: var(--texto-terciario);
+}
+
+/* ---------- Celdas ---------- */
+.lista-pistas-num {
+  text-align: center;
+  color: var(--texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+.lista-pistas-titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-4);
+  min-width: 0;
+}
+
+.lista-pistas-portada {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radio-sm);
+  overflow: hidden;
+  background-color: var(--fondo-sutil);
+}
+
+/* PortadaAlbum debe llenar el recuadro, sea SVG, div o img */
+.lista-pistas-portada > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lista-pistas-textos {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.lista-pistas-nombre {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  min-width: 0;
+  color: var(--texto-principal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lista-pistas-artista {
+  color: var(--texto-secundario);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Insignia "E" de contenido explícito */
+.lista-pistas-explicita {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 var(--espacio-1);
+  border-radius: var(--radio-sm);
+  background-color: var(--fondo-sutil);
+  color: var(--texto-secundario);
+  font-size: 10px;
+  line-height: 16px;
+}
+
+.lista-pistas-reproducciones {
+  text-align: right;
+  color: var(--texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+.lista-pistas-duracion {
+  text-align: right;
+  color: var(--texto-secundario);
+  font-variant-numeric: tabular-nums;
+}
+
+/* El reloj de la cabecera queda centrado sobre la columna */
+.lista-pistas-cabecera .lista-pistas-duracion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Tablet: columnas más compactas ---------- */
+@media (max-width: 1024px) {
+  .lista-pistas-con-reproducciones {
+    --pistas-columnas: 24px minmax(0, 1fr) 120px 64px;
+  }
+
+  .lista-pistas {
+    --pistas-columnas: 24px minmax(0, 1fr) 64px;
+  }
+}
+
+/* ---------- Móvil: se oculta reproducciones, filas más justas ---------- */
+@media (max-width: 720px) {
+  .lista-pistas,
+  .lista-pistas-con-reproducciones {
+    --pistas-columnas: 20px minmax(0, 1fr) 48px;
+  }
+
+  .lista-pistas-reproducciones {
+    display: none;
+  }
+
+  .lista-pistas-fila {
+    column-gap: var(--espacio-3);
+    padding-inline: var(--espacio-2);
+  }
+
+  .lista-pistas-titulo {
+    gap: var(--espacio-3);
+  }
+}
