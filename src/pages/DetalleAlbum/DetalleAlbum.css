@@ -1,0 +1,158 @@
+/* DetalleAlbum: página de detalle. La grilla de la tabla vive en ListaPistas/ListaCanciones. */
+
+.detalle-album {
+  background-color: var(--fondo-superficie); /* quitar si el layout ya pinta el fondo */
+  color: var(--texto-principal);
+  padding-bottom: var(--espacio-12);
+}
+
+.detalle-album-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  padding-top: var(--espacio-6);
+  min-width: 0;
+}
+
+/* ---------- Botón volver (en escritorio el diseño no lo muestra) ---------- */
+.detalle-album-volver {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--espacio-2);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-completo);
+  background-color: var(--fondo-elevada);
+  color: var(--texto-principal);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.detalle-album-volver:hover {
+  background-color: var(--fondo-sutil);
+}
+
+.detalle-album-volver:focus-visible,
+.detalle-album-reintentar:focus-visible,
+.detalle-album-estado .enlace-home:focus-visible {
+  outline: 2px solid var(--marca-primario);
+  outline-offset: 2px;
+}
+
+/* ---------- Créditos: fecha + copyright ---------- */
+.detalle-album-creditos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  padding-top: var(--espacio-6);
+}
+
+.detalle-album-creditos p {
+  margin: 0;
+}
+
+.detalle-album-creditos .cuerpo-p {
+  color: var(--texto-secundario);
+}
+
+.detalle-album-creditos .detalle-nota {
+  color: var(--texto-terciario);
+}
+
+/* ---------- "Más de {artista}" dentro del detalle ---------- */
+.detalle-album .seccion-albumes {
+  margin-block: var(--espacio-12) 0;
+  padding-block: 0;
+}
+
+/* ---------- Estados: cargando / error / no encontrado ---------- */
+.detalle-album[aria-busy="true"] {
+  padding-block: var(--espacio-12);
+}
+
+.detalle-album .texto-vacio {
+  margin: 0;
+  color: var(--texto-secundario);
+  font-family: var(--fuente-inter);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.detalle-album-estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-4);
+  min-height: 50vh;
+  padding-block: var(--espacio-16);
+  text-align: center;
+}
+
+.detalle-album-estado h1 {
+  margin: 0;
+  color: var(--texto-principal);
+}
+
+.detalle-album-estado p {
+  max-width: 48ch;
+  margin: 0;
+  color: var(--texto-secundario);
+}
+
+/* Botón primario para "Reintentar" y "Volver al catálogo" */
+.detalle-album-reintentar,
+.detalle-album-estado .enlace-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--espacio-3) var(--espacio-6);
+  border: 0;
+  border-radius: var(--radio-completo);
+  background-color: var(--marca-primario);
+  color: var(--texto-sobre-marca);
+  font-family: var(--fuente-inter);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.detalle-album-reintentar:hover,
+.detalle-album-estado .enlace-home:hover {
+  background-color: var(--marca-primario-hover);
+}
+
+.detalle-album-reintentar:active,
+.detalle-album-estado .enlace-home:active {
+  background-color: var(--marca-primario-presionado);
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 720px) {
+  .detalle-album-volver {
+    display: inline-flex;
+  }
+
+  .detalle-album-contenido {
+    padding-top: var(--espacio-4);
+  }
+
+  .detalle-album-creditos {
+    padding-top: var(--espacio-4);
+  }
+
+  .detalle-album .seccion-albumes {
+    margin-block-start: var(--espacio-8);
+  }
+
+  .detalle-album-estado {
+    padding-block: var(--espacio-12);
+  }
+}
