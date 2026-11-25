@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const API = "https://yanethm-sintonia-api.fly.dev/api/v1";
+const API = String(import.meta.env.VITE_API_BASE_URL).replace(/\/+$/, "");
+
 
 export function useGeneros() {
   const [generos, setGeneros] = useState([]);

@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 
-const API = "https://yanethm-sintonia-api.fly.dev/api/v1/textos";
+
+const API = String(import.meta.env.VITE_API_BASE_URL).replace(/\/+$/, "");
 const CLAVES_MENU_PUBLICO= ["inicio","catalogo"]
 
 function validarTextos(datos) {
@@ -47,7 +48,7 @@ export function useTextos(idioma) {
 
     async function cargarTextosNavbar() {
       try {
-        const respuesta = await fetch(`${API}?idioma=${idioma}`, {
+        const respuesta = await fetch(`${API}/textos?idioma=${idioma}`, {
           signal: controlador.signal,
         });
         if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
