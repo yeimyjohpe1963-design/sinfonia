@@ -1,5 +1,6 @@
 /* EncabezadoAlbum: portada 232px + info alineada al borde inferior (diseño de escritorio) */
 
+
 .encabezado-album {
   display: flex;
   align-items: flex-end;
@@ -97,6 +98,8 @@
   color: var(--texto-terciario);
 }
 
+
+
 /* ---------- Tablet ---------- */
 @media (max-width: 1024px) {
   .encabezado-album {
@@ -125,3 +128,5 @@
     padding-bottom: 0;
   }
 }
+
+
