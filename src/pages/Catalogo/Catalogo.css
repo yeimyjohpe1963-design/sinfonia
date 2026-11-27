@@ -15,6 +15,37 @@
   width: auto;
 }
 
+.pagina-catalogo .seccion-albumes-reintentar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--espacio-3) var(--espacio-6);
+  border: 0;
+  border-radius: var(--radio-completo);
+  background-color: var(--marca-primario);
+  color: var(--texto-sobre-marca);
+  font-family: var(--fuente-inter);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.pagina-catalogo .seccion-albumes-reintentar:hover {
+  background-color: var(--marca-primario-hover);
+}
+
+.pagina-catalogo .seccion-albumes-reintentar:active {
+  background-color: var(--marca-primario-presionado);
+}
+
+.pagina-catalogo .seccion-albumes-reintentar:focus-visible {
+  outline: 2px solid var(--marca-primario);
+  outline-offset: 3px;
+}
+
 /* 1. Encabezado dinámico */
 .encabezado-catalogo {
   margin-bottom: var(--espacio-6);

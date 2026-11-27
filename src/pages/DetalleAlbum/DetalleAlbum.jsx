@@ -108,6 +108,7 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
 
   const etiquetas = {
     tipo: encabezado?.etiquetas?.tipo?.[album.tipo],
+    genero: encabezado?.etiquetas?.genero ?? (idioma === "en" ? "Genre" : "Género"),
     anio: anioDe(album.fechaPublicacion),
     canciones: plantilla(
       cantidad === 1 ? encabezado?.canciones?.uno : encabezado?.canciones?.otro,

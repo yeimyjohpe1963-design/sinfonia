@@ -69,6 +69,10 @@ const FormularioIngresar = () => {
 
     const vacios = {};
     if (!correo.trim()) vacios.correo = errores?.correoObligatorio;
+    else if (correoRef.current?.validity.typeMismatch) {
+      vacios.correo =
+        errores?.correoFormato ?? "Ingresa un correo electrónico válido.";
+    }
     if (!clave) vacios.clave = errores?.claveObligatoria;
     if (Object.keys(vacios).length) {
       setErroresCampo(vacios);

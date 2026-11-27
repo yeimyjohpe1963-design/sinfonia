@@ -49,7 +49,7 @@ export function limpiarSesionAnterior() {
 
 export async function peticionApi(
   ruta,
-  { method = "GET", cuerpo, signal, headers } = {},
+  { method = "GET", cuerpo, signal, headers, cache } = {},
 ) {
   let respuesta;
   try {
@@ -57,6 +57,7 @@ export async function peticionApi(
       method,
       credentials: "include",
       signal,
+      ...(cache ? { cache } : {}),
       ...(headers ? { headers } : {}),
       ...(cuerpo === undefined
         ? {}
@@ -121,16 +122,33 @@ async function peticionAuth(ruta, opciones = {}) {
 
 // --- ENDPOINTS DEL CONTRATO ---
 
-export function postIniciarSesion({ correo, clave }) {
-  return peticionAuth("/sesion", {
+function extraerUsuarioSesion(respuesta) {
+  const datos = respuesta?.datos ?? respuesta;
+  if (
+    datos &&
+    typeof datos === "object" &&
+    Object.prototype.hasOwnProperty.call(datos, "usuario")
+  ) {
+    return datos.usuario ?? null;
+  }
+  return datos ?? null;
+}
+
+export async function postIniciarSesion({ correo, clave }) {
+  const respuesta = await peticionAuth("/sesion", {
     method: "POST",
     cuerpo: { correo, clave },
   });
+  return extraerUsuarioSesion(respuesta);
 }
 
 export async function obtenerSesion() {
   try {
-    return await peticionAuth("/sesion", { method: "GET" });
+    const respuesta = await peticionAuth("/sesion", {
+      method: "GET",
+      cache: "no-store",
+    });
+    return extraerUsuarioSesion(respuesta);
   } catch (error) {
     if (error?.status === 401) return null;
     throw error;
