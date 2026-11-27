@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-
-const API = String(import.meta.env.VITE_API_BASE_URL).replace(/\/+$/, "");
-
+import { useCallback, useEffect, useState } from "react";
+import { esErrorNoAutenticado, peticionApi } from "../services/auth.js";
 
 export function useAlbumes({ orden = "populares", limite = 6 } = {}) {
   const [albumes, setAlbumes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
+  const [intento, setIntento] = useState(0);
 
   useEffect(() => {
     const controlador = new AbortController();
@@ -16,16 +15,17 @@ export function useAlbumes({ orden = "populares", limite = 6 } = {}) {
       setError(false);
       try {
         const params = new URLSearchParams({ orden, limite });
-        const respuesta = await fetch(`${API}/albumes?${params}`, {
+        const json = await peticionApi(`/albumes?${params}`, {
+          method: "GET",
           signal: controlador.signal,
         });
-        if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
-        const json = await respuesta.json();
         setAlbumes(json?.datos ?? json);
       } catch (err) {
         if (err.name !== "AbortError") {
-          console.error("Error al cargar álbumes:", err);
-          setError(true);
+          if (!esErrorNoAutenticado(err)) {
+            console.error("Error al cargar álbumes:", err);
+            setError(true);
+          }
         }
       } finally {
         if (!controlador.signal.aborted) setCargando(false);
@@ -34,7 +34,9 @@ export function useAlbumes({ orden = "populares", limite = 6 } = {}) {
 
     cargar();
     return () => controlador.abort();
-  }, [orden, limite]);
+  }, [orden, limite, intento]);
 
-  return { albumes, cargando, error };
+  const recargar = useCallback(() => setIntento((n) => n + 1), []);
+
+  return { albumes, cargando, error, recargar };
 }

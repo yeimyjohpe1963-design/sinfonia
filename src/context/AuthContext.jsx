@@ -44,8 +44,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function iniciarSesion({ correo, clave }) {
-    const datos = await postIniciarSesion({ correo, clave });
-    const nuevaSesion = { usuario: datos.usuario };
+    const usuario = await postIniciarSesion({ correo, clave });
+    const nuevaSesion = { usuario };
     sesionModificada.current = true;
     setSesion(nuevaSesion);
     return nuevaSesion;

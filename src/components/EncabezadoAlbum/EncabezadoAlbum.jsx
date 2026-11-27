@@ -3,8 +3,11 @@ import "./EncabezadoAlbum.css";
 
 export default function EncabezadoAlbum({ album, etiquetas }) {
   const { titulo, artista, portada } = album;
+  const genero =
+    typeof album.genero === "string" ? album.genero : album.genero?.nombre;
 
   const datos = [
+    genero && `${etiquetas.genero}: ${genero}`,
     etiquetas.anio,
     etiquetas.canciones,
     etiquetas.duracion,

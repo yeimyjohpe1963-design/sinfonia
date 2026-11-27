@@ -64,7 +64,7 @@ export default function SeccionGeneros({
               className="seccion-albumes-reintentar"
               onClick={recargar}
             >
-              {estadoError?.botones?.reintentar}
+              {estadoError?.botones?.reintentar || "Reintentar"}
             </button>
           )}
         </div>

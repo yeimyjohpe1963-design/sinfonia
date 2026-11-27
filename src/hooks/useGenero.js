@@ -1,39 +1,47 @@
 // hooks/useGenero.js
-import { useEffect, useState } from "react";
-
-const API = String(import.meta.env.VITE_API_BASE_URL).replace(/\/+$/, "");
-;
+import { useCallback, useEffect, useState } from "react";
+import { esErrorNoAutenticado, peticionApi } from "../services/auth.js";
 
 export function useGenero(id) {
   const [detalle, setDetalle] = useState(null);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(false);
+  const [intento, setIntento] = useState(0);
 
   useEffect(() => {
     if (!id) {
       setDetalle(null);
+      setCargando(false);
+      setError(false);
       return;
     }
     const controlador = new AbortController();
     setCargando(true);
     setError(false);
 
-    fetch(`${API}/generos/${id}`, { signal: controlador.signal })
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then((json) => {
-        const datos = json?.datos ?? json;
-        setDetalle(datos);
-      })
-      .catch((e) => {
-        if (e.name !== "AbortError") setError(true);
-      })
-      .finally(() => setCargando(false));
+    async function cargar() {
+      try {
+        const json = await peticionApi(`/generos/${encodeURIComponent(id)}`, {
+          method: "GET",
+          signal: controlador.signal,
+        });
+        setDetalle(json?.datos ?? json);
+      } catch (e) {
+        if (
+          e.name !== "AbortError" &&
+          !esErrorNoAutenticado(e)
+        ) setError(true);
+      } finally {
+        if (!controlador.signal.aborted) setCargando(false);
+      }
+    }
+
+    cargar();
 
     return () => controlador.abort();
-  }, [id]);
+  }, [id, intento]);
 
-  return { detalle, cargando, error };
+  const recargar = useCallback(() => setIntento((n) => n + 1), []);
+
+  return { detalle, cargando, error, recargar };
 }
