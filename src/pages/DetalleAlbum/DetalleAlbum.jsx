@@ -145,7 +145,7 @@ export default function DetalleAlbum({ textos: textosProp, idioma: idiomaProp })
           </svg>
         </button>
 
-        <EncabezadoAlbum album={album} etiquetas={etiquetas} />
+        <EncabezadoAlbum album={album} etiquetas={etiquetas}  />
 
         <ListaPistas
           pistas={album.pistas}

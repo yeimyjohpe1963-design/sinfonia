@@ -41,6 +41,7 @@ export default function EncabezadoAlbum({ album, etiquetas }) {
               {dato}
             </span>
           ))}
+
         </p>
       </div>
     </header>
